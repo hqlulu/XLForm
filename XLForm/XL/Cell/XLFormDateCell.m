@@ -180,7 +180,10 @@
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeCountDownTimer] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeCountDownTimerInline]){
         NSDateComponents *time = [[NSCalendar currentCalendar] components:NSCalendarUnitHour | NSCalendarUnitMinute fromDate:date];
-        if ([time hour] > 1) {
+        if ([time minute] == 0) {
+            return [NSString stringWithFormat:@"%ld%@", (long)[time hour], (long)[time hour] == 1 ? @"hour" : @"hours"];
+        }
+        if ([time hour] >= 1) {
             return [NSString stringWithFormat:@"%ld%@ %ldmin", (long)[time hour], (long)[time hour] == 1 ? @"hour" : @"hours", (long)[time minute]];
         }
         return [NSString stringWithFormat:@"%ldmin", (long)[time minute]];
